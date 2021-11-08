@@ -8,11 +8,28 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      type: {
-        type: Sequelize.STRING
+      titulo: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
-      age: {
+      año: {
         type: Sequelize.INTEGER
+      },
+      consola: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      genero: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      ciudad: {
+        type: Sequelize.STRING,
+        allowNull:false,
+      },
+      alquilada: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
