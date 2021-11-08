@@ -28,12 +28,6 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-        
-      },
       fecha_alquiler: {
         allowNull: false,
         type: Sequelize.DATE

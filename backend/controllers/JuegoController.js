@@ -1,38 +1,36 @@
-//Importo modelo de datos
+//Importación a la BBDD
 const db = require("../models");
-const movies = db.movie;
-const Op = db.Sequelize.Op; //Import all ORM sequelize functions 
+const movies = db.juego;
+const Op = db.Sequelize.Op; //Importación de las funciones ORM de Sequelize.
 
-var categoryModel  = require('../models').category;  //Add for dependency response
-
-const MovieController = {}; //Create the object controller
+const JuegoController = {}; //Creaación del objeto del controlador
 
 
 
-//CRUD end-points Functions
+//Hacemos el CRUD de las funciones end-point.
 //-------------------------------------------------------------------------------------
-//GET all movies from database
-MovieController.getAll = (req, res) => {
+//Hacemos un GET de todos los juegos
+JuegoController.getAll = (req, res) => {
     
-    movies.findAll({include: [{ model:categoryModel}]})
+    juegos.findAll({include: [{ model:categoryModel}]})
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving movies."
+            err.message || "Ha surgido un error al intentar acceder a los Videojuegos."
         });
       });
   };
 
 
 //-------------------------------------------------------------------------------------
-//GET movies by Id from database
-MovieController.getById = (req, res) => {
+//Hacemos un GET para recibir los juegos por ID.
+JuegoController.getById = (req, res) => {
     const id = req.params.id;
 
-    movies.findByPk(id, {include: [{ model:categoryModel}]})
+    juegos.findByPk(id, {include: [{ model:categoryModel}]})
       .then(data => {
         if (data) {
           res.send(data);
@@ -44,7 +42,7 @@ MovieController.getById = (req, res) => {
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error retrieving movies with id=" + id
+          message: "Ha surgido un error al intentar acceder al Videojuego con el id " + id + "."
         });
       });
   };

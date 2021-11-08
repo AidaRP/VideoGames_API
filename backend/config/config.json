@@ -1,22 +1,21 @@
 {
   "development": {
-    "username": "remote",
-    "password": "GeeksHubs_0921",
-    "database": "API_VideoGames",
-    "host": "172.16.9.68",
-    "port": "3306",
+    "username": "remote",          
+    "password": "GeeksHubs_0921",  
+    "database": "API_VideoGames", 
+    "host": "172.16.9.68",       
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "root",
+    "password": null,
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": "root",
+    "password": null,
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql"
