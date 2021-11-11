@@ -7,7 +7,7 @@ const authConfig = require('../config/auth');
 const UsuarioController = {};
 
 
-//GESTIONAMOS LOGIN DE USUARIOS
+//Gestión del login de los usuarios
 UsuarioController.signIn = (req, res) => {
 
     let correo = req.body.correo;
@@ -38,14 +38,14 @@ UsuarioController.signIn = (req, res) => {
 
 //-------------------------------------------------------------------------------------
 
-//GESTIONAMOS REGISTRO DE USUARIOS
+//Gestión del registro de los usuarios
 UsuarioController.signUp = (req, res) => { 
 
-    if (req.user.usuario.rol == "administrador") {//COMPROBAMOS SI ESTÁ LOGADO COMO ADMINISTRADOR
+    if (req.user.usuario.rol == "administrador") {//Comprobación del login como administrador
 
           let clave = req.body.clave;
 
-          if (clave.length >= 8) {//SE ENCRIPTA LA CONTRASEÑA SI MÍNIMO TIENE 8 CARACTERES
+          if (clave.length >= 8) {//La contraseña será encriptada si tiene 8 carácteres commo mínimo.
             var password = bcrypt.hashSync(req.body.clave, Number.parseInt(authConfig.rounds));   
 
             usuario.create({
@@ -82,13 +82,13 @@ UsuarioController.signUp = (req, res) => {
 
 //-------------------------------------------------------------------------------------
 
-//OBTENEMOS LISTADO DE TODAS LOS USUARIOS
+//Obtención del listado de todos los usuarios.
 
 
 
 UsuarioController.getAll = (req, res) => {
   
-    if (req.user.usuario.rol == "administrador") {//COMPROBAMOS SI ESTÁ LOGADO COMO ADMINISTRADOR
+    if (req.user.usuario.rol == "administrador") {//Comprobación de si está logado como administrador
 
             usuario.findAll()
               .then(data => {
@@ -109,12 +109,12 @@ UsuarioController.getAll = (req, res) => {
 
 //-------------------------------------------------------------------------------------
 
-//OBTENEMOS UN UNICO USUARIO, BUSCANDO POR ID
+//Obtención de un unico usuario, buscando por Id
 UsuarioController.getById = (req, res) => {
 
     const id = req.params.id;
 
-    if (req.user.usuario.rol == "administrador" || req.user.usuario.id == id) {// HACEMOS QUE SOLO PUEDA VERLO EL ADMINISTRADOR O EL USUARIO DUEÑO DEL PERFIL
+    if (req.user.usuario.rol == "administrador" || req.user.usuario.id == id) {//Única visión para el administrador o usuario del perfil. 
 
         usuario.findByPk(id)
             .then(data => {
@@ -144,7 +144,7 @@ UsuarioController.update = (req, res) => {
 
         const id = req.params.id;
 
-        if (req.user.usuario.rol == "administrador" || req.user.usuario.id == id) {// HACEMOS QUE SOLO PUEDA ACTULIZARLO EL ADMINISTRADOR O EL USUARIO DUEÑO DEL PERFIL
+        if (req.user.usuario.rol == "administrador" || req.user.usuario.id == id) {//Actualización única al administrador o al usuario del perfil.
 
               
             
@@ -174,12 +174,12 @@ UsuarioController.update = (req, res) => {
         }
 };
 
-//BORRAMOS A USUARIO, BUSCANDO POR ID
+//Eliminación de un usuario buscado por Id
 UsuarioController.delete = (req, res) => {
 
     const id = req.params.id;
 
-    if (req.user.usuario.rol == "administrador" || req.user.usuario.id == id) {// HACEMOS QUE SOLO PUEDA BORRARLO EL ADMINISTRADOR O EL USUARIO DUEÑO DEL PERFIL
+    if (req.user.usuario.rol == "administrador" || req.user.usuario.id == id) {// HACEMOS QUE SOLO PUEDA BORRARLO EL ADMINISTRADOR O EL USUARIO DUEÑO DEL PERFIL Eliminación única al administrador o el usuario del perfil.
 
             usuario.destroy({
                 where: { id: id }
@@ -209,10 +209,10 @@ UsuarioController.delete = (req, res) => {
 
 //-------------------------------------------------------------------------------------
 
-//BORRAMOS TODOS LOS USUARIOS
+//Eliminación de todos los usuarios
 UsuarioController.deleteAll = (req, res) => {
 
-  if (req.user.usuario.rol == "administrador") {// HACEMOS QUE SOLO PUEDA BORRARLO EL ADMINISTRADOR
+  if (req.user.usuario.rol == "administrador") {//Eliminación única para el administrador
 
               usuario.destroy({
                 where: {},
