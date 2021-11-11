@@ -19,10 +19,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      compañia: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       genero: {
         type: Sequelize.STRING,
         allowNull: false,

@@ -4,59 +4,1063 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
   
       await queryInterface.bulkInsert('juegos', [{
-        type: 'zombies',
-        age: 21,
+        titulo:,
+        año:,
+        consola:,
+        genero:,
+        ciudad:,
+        alquilada:,
         createdAt: new Date(),
         updatedAt: new Date()
       },
-      {
-        type: 'horror',
-        age: 16,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        type: 'action',
-        age: 21,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        type: 'drama',
-        age: 12,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        type: 'fantasy',
-        age: 8,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        type: 'mystery',
-        age: 12,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        type: 'romance',
-        age: 12,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        type: 'thriller',
-        age: 12,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        type: 'comedy',
-        age: 12,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
+    {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },   {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+
+        {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },   {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+
+        {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+        {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+        {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },   {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+        {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+        {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+        {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+        {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },   {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+     {
+      titulo:,
+      año:,
+      consola:,
+      genero:,
+      ciudad:,
+      alquilada:,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     ], {});
   },
 
