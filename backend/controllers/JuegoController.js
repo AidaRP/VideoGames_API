@@ -1,6 +1,6 @@
 //Importación a la BBDD
 const db = require("../models");
-const movies = db.juego;
+const juegos = db.juego;
 const Op = db.Sequelize.Op; //Importación de las funciones ORM de Sequelize.
 
 const JuegoController = {}; //Creaación del objeto del controlador
@@ -50,8 +50,8 @@ JuegoController.getById = (req, res) => {
 
 
 //-------------------------------------------------------------------------------------
-//CREATE a new movie in database
-MovieController.create = (req, res) => {
+//Creacion de un nuevo juego en la BBDD
+JuegoController.create = (req, res) => {
     // Validate request
     if (!req.body.title) {
       res.status(400).send({
@@ -60,114 +60,114 @@ MovieController.create = (req, res) => {
       return;
     }
   
-    // Create a Movies
-    const newMovie = {
+    // Crear un juego
+    const newJuego = {
       title: req.body.title,
       categoryId: req.body.categoryId
     };
   
-    // Save Movies in the database
-    movies.create(newMovie)
+    // Guardar un juego en la BBDD
+    juegos.create(newJuego)
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while creating the Movie."
+            err.message || "Algún error ha ocurrido mientras se creaba un juego."
         });
       });
   };
 
 
 //-------------------------------------------------------------------------------------
-//UPDATE a movie from database
-MovieController.update = (req, res) => {
+//Actualizar un Juego en la BBDD
+JuegoController.update = (req, res) => {
     const id = req.params.id;
   
-    movies.update(req.body, {
+    juegos.update(req.body, {
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Movie was updated successfully."
+            message: "EL juego ha sido actualizao exitosamente."
           });
         } else {
           res.send({
-            message: `Cannot update Movie with id=${id}. Maybe Movie was not found or req.body is empty!`
+            message: `No se ha podido actualizar el juego con el id=${id}. ¡Quizás no se encontró el videojuego o el ${req.body} está vacío!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating Movie with id=" + id
+          message: "Error al actualizar el juego con el id=" + id
         });
       });
   };
 
 
 //-------------------------------------------------------------------------------------
-//GET movie by Title from database 
-//FindByTitle
-  MovieController.getByTitle = (req, res) => {
-    movies.findAll({ where: { title: req.params.title } })
+//Obtenido el juego con el titulo de la BBDD 
+//Encontrar por titulo
+  JuegoController.getByTitle = (req, res) => {
+    juegos.findAll({ where: { title: req.params.title } })
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving tutorials."
+            err.message || "Se produjo un error al recuperar el titulo ."
         });
       });
   };
 
 
 //-------------------------------------------------------------------------------------
-//DELETE a movie by Id from database
-MovieController.delete = (req, res) => {
+//Eliminar un juego de la BBDD
+JuegoController.delete = (req, res) => {
     const id = req.params.id;
   
-    movies.destroy({
+    juegos.destroy({
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Movie was deleted successfully!"
+            message: "El juego fue eliminado exitosamente!"
           });
         } else {
           res.send({
-            message: `Cannot delete Movie with id=${id}. Maybe Movie was not found!`
+            message: `No se ha podido eliminar el juego con el id=${id}. Quizá el juego no fue encontrado!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete Movie with id=" + id
+          message: "No se pudo eliminar el juego con el id=" + id
         });
       });
   };
 
 
 //-------------------------------------------------------------------------------------
-//DELETE all movies from database
-//delete all movies 
-  MovieController.deleteAll = (req, res) => {
-    movies.destroy({
+//Elimina todos los juegos de la BBDD.
+//Elimina todos los juegos.
+  JuegoController.deleteAll = (req, res) => {
+    juegos.destroy({
       where: {},
       truncate: false
     })
       .then(nums => {
-        res.send({ message: `${nums} Movies were deleted successfully!` });
+        res.send({ message: `${nums} Los juegos fueron eliminados exitosamente!` });
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while removing all movies."
+            err.message || "Algún error ha ocurrido eliminando todos los juegos."
         });
       });
   };
 
-module.exports = MovieController;
+module.exports = JuegoController;

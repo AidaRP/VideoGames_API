@@ -4,7 +4,7 @@ const router = express.Router();
 //Importo modelo de datos
 const CategoryController = require('../controllers/CategoryController');
 
-// End-points CRUD movies
+// End-points CRUD juegos
 router.get('/', CategoryController.getAll);
 router.get('/:id', CategoryController.getById);
 router.get('/type/:type', CategoryController.getByType);

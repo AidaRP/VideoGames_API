@@ -2,15 +2,15 @@ const express = require('express');
 const router = express.Router();
 
 //Importo modelo de datos
-const MovieController = require('../controllers/MovieController');
+const JuegoController = require('../controllers/JuegoController');
 
-// End-points CRUD movies
-router.get('/', MovieController.getAll);
-router.get('/:id', MovieController.getById);
-router.get('/name/:title', MovieController.getByTitle);
-router.post('/', MovieController.create);
-router.put('/:id', MovieController.update);
-router.delete('/', MovieController.deleteAll);
-router.delete('/:id', MovieController.delete);
+// End-points CRUD juegos
+router.get('/', JuegoController.getAll);
+router.get('/:id', JuegoController.getById);
+router.get('/name/:title', JuegoController.getByTitle);
+router.post('/', JuegoController.create);
+router.put('/:id', JuegoController.update);
+router.delete('/', JuegoController.deleteAll);
+router.delete('/:id', JuegoController.delete);
 
 module.exports = router;
