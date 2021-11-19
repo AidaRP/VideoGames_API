@@ -3,8 +3,8 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     
-      await queryInterface.bulkInsert('juegos', [
-        [{
+      await queryInterface.bulkInsert('usuarios', [
+        {
           "id": 5,
           "nombre": "Gram",
           "correo": "ghadland0@reverbnation.com",
@@ -244,13 +244,13 @@ module.exports = {
           "correo": "wmanders13@blinklist.com",
           "clave": "p2nHOZ",
           "ciudad": "Pombas"
-        }]
+        }
     ], {});
   },
 
   down: async (queryInterface, Sequelize) => {
     
-      await queryInterface.bulkDelete('juegos', null, {});
+      await queryInterface.bulkDelete('usuarios', null, {});
      
   }
 };

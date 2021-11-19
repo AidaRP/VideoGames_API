@@ -50,7 +50,7 @@ PedidoController.create = (req, res) => {
         //Comprobación de que el videojuego está en la misma ciudad que el usuario.
 
         //Buscamos la ciudad del videojuego 
-        var ciudadUsuarioBusscado = "a";
+        var ciudadUsuarioBuscado = "a";
 
         usuario.findByPk(req.body.usuarioId)
         .then(data => {

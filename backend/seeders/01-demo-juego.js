@@ -396,7 +396,7 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     
-      await queryInterface.bulkDelete('categories', null, {});
+      await queryInterface.bulkDelete('juegos', null, {});
      
   }
 };
