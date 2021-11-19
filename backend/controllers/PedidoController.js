@@ -10,10 +10,8 @@ const PedidoController = {}; //Create the object controller
 //-------------------------------------------------------------------------------------
 //GET all categories from database
 PedidoController.getAll = (req, res) => {
-    const type = req.query.type;
-    var condition = type ? { type: { [Op.like]: `%${type}%` } } : null;
   
-    pedido.findAll({ where: condition })
+    pedido.findAll()
       .then(data => {
         res.send(data);
       })
@@ -53,7 +51,7 @@ PedidoController.getById = (req, res) => {
 //CREATE a new pedido in database
 PedidoController.create = (req, res) => {
     // Validate request
-    if (!req.body.type) {
+    if (!req.body) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
@@ -62,8 +60,10 @@ PedidoController.create = (req, res) => {
   
     // Create a Pedido
     const newPedido = {
-      type: req.body.type,
-      age: req.body.age
+      juegoId: req.body.juegoId,
+      usuarioId: req.body.usuarioId,
+      fecha_alquiler:req.body.fecha_alquiler,
+      fecha_devolucion:req.body.fecha_devolucion,
     };
   
     // Save Pedido in the database

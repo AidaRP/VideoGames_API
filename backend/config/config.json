@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "remote",          
-    "password": "GeeksHubs_0921",  
-    "database": "VideoGames", 
-    "host": "192.168.0.131",     
+    "username": "b02f40f159831e",          
+    "password": "93b7b833",  
+    "database": "heroku_18dab2964aba813", 
+    "host": "eu-cdbr-west-01.cleardb.com",     
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "username": "b02f40f159831e",
+    "password": "93b7b833",
+    "database": "heroku_18dab2964aba813",
+    "host": "eu-cdbr-west-01.cleardb.com",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "b02f40f159831e",
+    "password": "93b7b833",
+    "database": "heroku_18dab2964aba813",
+    "host": "eu-cdbr-west-01.cleardb.com",
     "dialect": "mysql"
   }
 }
