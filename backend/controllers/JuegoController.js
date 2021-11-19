@@ -1,15 +1,17 @@
-//Importación a la BBDD
+//Importo modelo de datos
 const db = require("../models");
 const juegos = db.juego;
-const Op = db.Sequelize.Op; //Importación de las funciones ORM de Sequelize.
+const Op = db.Sequelize.Op; //Import all ORM sequelize functions 
 
-const JuegoController = {}; //Creaación del objeto del controlador
+var categoryModel  = require('../models').category;  //Add for dependency response
+
+const JuegoController = {}; //Create the object controller
 
 
 
-//Hacemos el CRUD de las funciones end-point.
+//CRUD end-points Functions
 //-------------------------------------------------------------------------------------
-//Hacemos un GET de todos los juegos
+//GET all juegos from database
 JuegoController.getAll = (req, res) => {
     
     juegos.findAll({include: [{ model:categoryModel}]})
@@ -19,14 +21,14 @@ JuegoController.getAll = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Ha surgido un error al intentar acceder a los Videojuegos."
+            err.message || "Some error occurred while retrieving juegos."
         });
       });
   };
 
 
 //-------------------------------------------------------------------------------------
-//Hacemos un GET para recibir los juegos por ID.
+//GET juegos by Id from database
 JuegoController.getById = (req, res) => {
     const id = req.params.id;
 
@@ -42,7 +44,7 @@ JuegoController.getById = (req, res) => {
       })
       .catch(err => {
         res.status(500).send({
-          message: "Ha surgido un error al intentar acceder al Videojuego con el id " + id + "."
+          message: "Error retrieving juegos with id=" + id
         });
       });
   };
@@ -50,7 +52,7 @@ JuegoController.getById = (req, res) => {
 
 
 //-------------------------------------------------------------------------------------
-//Creacion de un nuevo juego en la BBDD
+//CREATE a new juego in database
 JuegoController.create = (req, res) => {
     // Validate request
     if (!req.body.title) {
@@ -60,13 +62,13 @@ JuegoController.create = (req, res) => {
       return;
     }
   
-    // Crear un juego
+    // Create a Juegos
     const newJuego = {
       title: req.body.title,
       categoryId: req.body.categoryId
     };
   
-    // Guardar un juego en la BBDD
+    // Save Juegos in the database
     juegos.create(newJuego)
       .then(data => {
         res.send(data);
@@ -74,14 +76,14 @@ JuegoController.create = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Algún error ha ocurrido mientras se creaba un juego."
+            err.message || "Some error occurred while creating the Juego."
         });
       });
   };
 
 
 //-------------------------------------------------------------------------------------
-//Actualizar un Juego en la BBDD
+//UPDATE a juego from database
 JuegoController.update = (req, res) => {
     const id = req.params.id;
   
@@ -91,25 +93,25 @@ JuegoController.update = (req, res) => {
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "EL juego ha sido actualizao exitosamente."
+            message: "Juego was updated successfully."
           });
         } else {
           res.send({
-            message: `No se ha podido actualizar el juego con el id=${id}. ¡Quizás no se encontró el videojuego o el ${req.body} está vacío!`
+            message: `Cannot update Juego with id=${id}. Maybe Juego was not found or req.body is empty!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error al actualizar el juego con el id=" + id
+          message: "Error updating Juego with id=" + id
         });
       });
   };
 
 
 //-------------------------------------------------------------------------------------
-//Obtenido el juego con el titulo de la BBDD 
-//Encontrar por titulo
+//GET juego by Title from database 
+//FindByTitle
   JuegoController.getByTitle = (req, res) => {
     juegos.findAll({ where: { title: req.params.title } })
       .then(data => {
@@ -118,14 +120,14 @@ JuegoController.update = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Se produjo un error al recuperar el titulo ."
+            err.message || "Some error occurred while retrieving tutorials."
         });
       });
   };
 
 
 //-------------------------------------------------------------------------------------
-//Eliminar un juego de la BBDD
+//DELETE a juego by Id from database
 JuegoController.delete = (req, res) => {
     const id = req.params.id;
   
@@ -135,37 +137,37 @@ JuegoController.delete = (req, res) => {
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "El juego fue eliminado exitosamente!"
+            message: "Juego was deleted successfully!"
           });
         } else {
           res.send({
-            message: `No se ha podido eliminar el juego con el id=${id}. Quizá el juego no fue encontrado!`
+            message: `Cannot delete Juego with id=${id}. Maybe Juego was not found!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "No se pudo eliminar el juego con el id=" + id
+          message: "Could not delete Juego with id=" + id
         });
       });
   };
 
 
 //-------------------------------------------------------------------------------------
-//Elimina todos los juegos de la BBDD.
-//Elimina todos los juegos.
+//DELETE all juegos from database
+//delete all juegos 
   JuegoController.deleteAll = (req, res) => {
     juegos.destroy({
       where: {},
       truncate: false
     })
       .then(nums => {
-        res.send({ message: `${nums} Los juegos fueron eliminados exitosamente!` });
+        res.send({ message: `${nums} Juegos were deleted successfully!` });
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Algún error ha ocurrido eliminando todos los juegos."
+            err.message || "Some error occurred while removing all juegos."
         });
       });
   };

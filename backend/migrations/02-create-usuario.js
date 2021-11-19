@@ -36,6 +36,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('juegos');
+    await queryInterface.dropTable('usuarios');
   }
 };

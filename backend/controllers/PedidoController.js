@@ -1,150 +1,178 @@
-const { pedido } = require('../models/index');  
-const { juego } = require('../models/index');
-const { usuario }  = require('../models/index');
+//Importo modelo de datos
+const db = require("../models");
+const juegos = db.juego;
+const Op = db.Sequelize.Op; //Import all ORM sequelize functions 
 
-var juegoModel = require('../models').juego; //Traemos el modelo del juego, para mostrar los datos del mismo.
+var categoryModel  = require('../models').category;  //Add for dependency response
 
-var usuarioModel = require('../models').usuario; //Traemos el modelo de usuario, para mostrar los datos de los usuarios.
+const JuegoController = {}; //Create the object controller
 
-const PedidoController = {};
 
-//Recibimos el listado de todos los pedidos
-PedidoController.getAll = (req, res) => {
 
-if (req.user.usuario.rol == "administrador") {
-
-pedido.findAll({include: [{ model:juegoModel}, {model:usuarioModel}]})
-.then(data => {
-    res.send(data);
-})
-.catch(err => {
-    res.status(500).send({
- message:
- err.message || "Ha surgido algún error al intentar acceder a los pedidos."
-});
-});
-
-}else{
-    res.send({
-    message:`No tienes permisos para ver todos los pedidos. Contacta con un administrador.`
-    });
-   }
+//CRUD end-points Functions
+//-------------------------------------------------------------------------------------
+//GET all juegos from database
+JuegoController.getAll = (req, res) => {
+    
+    juegos.findAll({include: [{ model:categoryModel}]})
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving juegos."
+        });
+      });
   };
 
-//Creación de nuevo pedido
-//Comprobación que el videojuego y el usuario están en la misma ciudad. Si se verifica la condición anterior, 
-//se hará la comprobación de si el videojuego está alquilado o no.
 
-PedidoController.create = (req, res) => {
+//-------------------------------------------------------------------------------------
+//GET juegos by Id from database
+JuegoController.getById = (req, res) => {
+    const id = req.params.id;
 
-    if (req.user.usuario.rol == "administrador" || req.user.usuario.id == req.body.usuarioId) { //Eliminación únicamente adjudicada al administrador.
-
-        //Comprobación si hay algo en el body.
-        if(!req.body){
-            res.status(400).send({
-                message: "El contenido no puede estar vacío."
-            });
-            return;
-        }
-
-        //Comprobación de que el videojuego está en la misma ciudad que el usuario.
-
-        //Buscamos la ciudad del videojuego 
-        var ciudadUsuarioBuscado = "a";
-
-        usuario.findByPk(req.body.usuarioId)
-        .then(data => {
-            if (data){
-                ciudadUsuarioBuscado = data.ciudad;
-                usuarioBuscado = data;
-            }else{
-                res.status(404).send({
-                    message: `No se puede encontrar el videojuego con el id ${id}.`
-                });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:"Ha sugido algún error al intentar acceder al usuario con el id " + id
-            });
-        });
-
-        //Buscamos la ciudad del usuario 
-        var juegoBuscado = "q";
-        var ciudadJuegoBuscado = "b";
-        juego.findByPk(req.body.juegoId)
-        .then(data => {
-
-        //Comprobación de que las 2 ciudades son iguales y si el juego está ya alquilado.
+    juegos.findByPk(id, {include: [{ model:categoryModel}]})
+      .then(data => {
         if (data) {
-            juegoBuscado = data;
-            ciudadJuegoBuscado = data.ciudad; 
-        }
-        if (ciudadJuegoBuscado == ciudadUsuarioBuscado && data.alquilado == false) {
-            const nuevoPedido = {
-                juegoId: req.body.juegoId,
-                usuarioId: req.body.usuarioId,
-                fecha_alquiler: req.body.fecha_alquiler,
-                fecha_devolucion: req.body.fecha_devolucion
-            };
-            pedido.create(nuevoPedido)
-            .then(data => {
-                res.send(data);
-                juegoBuscado.alquilado = true;
-                console.log(juegoBuscado.alquilado);
-                juego.update( {alquilado: true},{ where: { id: juegoBuscado.id}})
-                .then(num => {
-                    if (num == 1) {
-                      // res.send({
-                      //   message: ""
-                      // });
-                    } else {
-                      // res.send({
-                      //   message: ``
-                      // });
-                    }
-                  })
-                  .catch(err => {
-                    res.status(500).send({
-                      message: "Ha surgido algún error al intentar crear el pedido."
-                    });
-                  });
-              })
-              .catch(err => {
-                res.status(500).send({
-                  message:
-                    err.message || "Ha surgido algún error al intentar crear un pedido."
-                });
-              });
+          res.send(data);
         } else {
-          if (ciudadJuegoBuscado != ciudadUsuarioBuscado) {
-            res.status(404).send({
-              message: `El usuario y la película no se encuentran en la misma ciudad.`
-            });
-          }else{
-            res.status(404).send({
-              message: `La película ya está alquilada.`
-            });
-          }
-          
+          res.status(404).send({
+            message: `Cannot find Tutorial with id=${id}.`
+          });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Ha surgido algún error al intentar acceder al usuario con el id " + req.body.usuarioId
+          message: "Error retrieving juegos with id=" + id
         });
       });
-}else{
-res.send({
-message: `No tienes permisos para crear el pedido.`
-});
-}
-};
+  };
+
+
 
 //-------------------------------------------------------------------------------------
+//CREATE a new juegos in database
+JuegoController.create = (req, res) => {
+    // Validate request
+    if (!req.body.title) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    }
+  
+    // Create a Juegos
+    const newJuego = {
+      title: req.body.title,
+      categoryId: req.body.categoryId
+    };
+  
+    // Save Juegos in the database
+    juegos.create(newJuego)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the Juego."
+        });
+      });
+  };
 
-//Borramos un pedido
-PedidoController.delete = (req, res) => {
+
+//-------------------------------------------------------------------------------------
+//UPDATE a juego from database
+JuegoController.update = (req, res) => {
+    const id = req.params.id;
+  
+    juegos.update(req.body, {
+      where: { id: id }
+    })
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "Juego was updated successfully."
+          });
+        } else {
+          res.send({
+            message: `Cannot update Juego with id=${id}. Maybe Juego was not found or req.body is empty!`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error updating Juego with id=" + id
+        });
+      });
+  };
+
+
+//-------------------------------------------------------------------------------------
+//GET juego by Title from database 
+//FindByTitle
+  JuegoController.getByTitle = (req, res) => {
+    juegos.findAll({ where: { title: req.params.title } })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving tutorials."
+        });
+      });
+  };
+
+
+//-------------------------------------------------------------------------------------
+//DELETE a juego by Id from database
+JuegoController.delete = (req, res) => {
+    const id = req.params.id;
+  
+    juegos.destroy({
+      where: { id: id }
+    })
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "Juego was deleted successfully!"
+          });
+        } else {
+          res.send({
+            message: `Cannot delete Juego with id=${id}. Maybe Juego was not found!`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Could not delete Juego with id=" + id
+        });
+      });
+  };
+
+
+//-------------------------------------------------------------------------------------
+//DELETE all juegos from database
+//delete all juegos 
+  JuegoController.deleteAll = (req, res) => {
+    juegos.destroy({
+      where: {},
+      truncate: false
+    })
+      .then(nums => {
+        res.send({ message: `${nums} Juegos were deleted successfully!` });
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while removing all juegos."
+        });
+      });
+  };
+
+module.exports = JuegoController;
 
 if (req.user.usuario.rol == "administrador") {// Único permiso de eliminación al administrador
 
@@ -152,7 +180,7 @@ const id = req.params.id;
 
 let idJuego = 0;
 
-//Buscamos el pedido que queremos eliminar y sacamos la juego que está guardada en el pedido 
+//Buscamos el pedido que queremos eliminar y sacamos el juego que está guardado en el pedido 
 pedido.findByPk(id)
   .then(data => {
       if (data) {
@@ -209,7 +237,6 @@ pedido.destroy({ where: { id: id }})
 res.send({
 message: `No tienes permisos para borrar el pedido. Contacta con un administrador.`
 });
-}
 };
 
 module.exports = PedidoController;

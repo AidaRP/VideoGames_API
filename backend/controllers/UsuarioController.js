@@ -1,237 +1,72 @@
-//Importo modelo de datos
 const { usuario } = require('../models/index');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const authConfig = require('../config/auth');
+const usuarioConfig = require('../config/auth');
 
-const UsuarioController = {};
+const UsuarioController = {}; //Create the object controller
 
-
-//Gestión del login de los usuarios
-UsuarioController.signIn = (req, res) => {
-
-    let correo = req.body.correo;
-    let clave = req.body.clave;
-
-    usuario.findOne({
-        where: { correo: correo }
-    }).then(usuario => {
-        if (!usuario) {
-            res.status(404).json({ msg: "Usuario con este correo no encontrado" });
-        } else {
-            if (bcrypt.compareSync(clave, usuario.clave)) { //COMPARA CONTRASEÑA INTRODUCIDA CON CONTRASEÑA GUARDADA, TRAS DESENCRIPTAR
-                let token = jwt.sign({ usuario: usuario }, authConfig.secret, {
-                    expiresIn: authConfig.expires
-                });
-                res.json({
-                    usuario: usuario,
-                    token: token
-                })
+//-------------------------------------------------------------------------------------
+//Login usuario with database
+//get usuario
+AuthController.signIn = (req, res) =>{
+        let { correo, clave } = req.body;
+        // Buscar usuario
+        usuario.findOne({ where: { correo: correo }
+        }).then(usuario => {
+            if (!usuario) {
+                res.status(404).json({ msg: "Usuario con este correo no encontrado" });
             } else {
-                res.status(401).json({ msg: "Contraseña incorrecta" })
-            }
-        }
-    }).catch(err => {
-        res.status(500).json(err);
-    })
-};
+                if (bcrypt.compareSync(clave, usuario.clave)) {
+                    // Creamos el token
+                    let token = jwt.sign({ usuario: usuario }, authConfig.secret, {
+                        expiresIn: authConfig.expires
+                    });
 
-//-------------------------------------------------------------------------------------
-
-//Gestión del registro de los usuarios
-UsuarioController.signUp = (req, res) => { 
-
-    if (req.user.usuario.rol == "administrador") {//Comprobación del login como administrador
-
-          let clave = req.body.clave;
-
-          if (clave.length >= 8) {//La contraseña será encriptada si tiene 8 carácteres commo mínimo.
-            var password = bcrypt.hashSync(req.body.clave, Number.parseInt(authConfig.rounds));   
-
-            usuario.create({
-                nombre: req.body.nombre,
-                correo: req.body.correo,
-                clave: password,
-                ciudad: req.body.ciudad,
-                rol: req.body.rol
-            }).then(usuario => {
-                let token = jwt.sign({ usuario: usuario }, authConfig.secret, {
-                    expiresIn: authConfig.expires
-                });
-                res.json({
-                    usuario: usuario,
-                    token: token
-                });
-            }).catch(err => {
-                res.status(500).json(err);
-            });
-          }else{
-            res.send({
-              message: `La contraseña tiene que tener un mínimo de 8 caracteres. ${clave}`
-          });
-          }
-    }else{
-      res.send({
-        message: `No tienes permisos para registrar usuarios. Contacta con un administrador.`
-      });
-    }
-
-    
-
-};
-
-//-------------------------------------------------------------------------------------
-
-//Obtención del listado de todos los usuarios.
-
-
-
-UsuarioController.getAll = (req, res) => {
-  
-    if (req.user.usuario.rol == "administrador") {//Comprobación de si está logado como administrador
-
-            usuario.findAll()
-              .then(data => {
-                res.send(data);
-              })
-              .catch(err => {
-                res.status(500).send({
-                  message:
-                    err.message || "Ha surgido algún error al intentar acceder a los usuarios."
-                });
-              });
-    }else{
-      res.send({
-        message: `No tienes permisos para visualizar a todos los usuarios. Contacta con un administrador.`
-      });
-    }
-  };
-
-//-------------------------------------------------------------------------------------
-
-//Obtención de un unico usuario, buscando por Id
-UsuarioController.getById = (req, res) => {
-
-    const id = req.params.id;
-
-    if (req.user.usuario.rol == "administrador" || req.user.usuario.id == id) {//Única visión para el administrador o usuario del perfil. 
-
-        usuario.findByPk(id)
-            .then(data => {
-                if (data) {
-                    res.send(data);
+                    res.json({
+                        usuario: usuario,
+                        token: token
+                    })
                 } else {
-                    res.status(404).send({
-                        message: `No se puede encontrar el usuario con el id ${id}.`
-                    });
+                    // Unauthorized Access
+                    res.status(401).json({ msg: "Contraseña incorrecta" })
                 }
-            })
-            .catch(err => {
-                res.status(500).send({
-                    message: "Ha surgido algún error al intentar acceder al usuario con el id " + id
-                });
+            }
+        }).catch(err => {
+            res.status(500).json(err);
+        })
+    };
+
+
+//-------------------------------------------------------------------------------------
+//REGISTER new usuario in database
+//create usuario
+AuthController.signUp = (req, res)=> {
+
+        // Encriptamos la contraseña
+        let clave = bcrypt.hashSync(req.body.clave, Number.parseInt(authConfig.rounds));
+
+        // Crear un usuario
+        usuario.create({
+            name: req.body.name,
+            correo: req.body.correo,
+            clave: clave
+        }).then(usuario => {
+
+            // Creamos el token
+            let token = jwt.sign({ usuario: usuario }, authConfig.secret, {
+                expiresIn: authConfig.expires
             });
-    }else{
-      res.send({
-        message: `No tienes permisos para acceder al perfil indicado.`
-      });
-    }
-};
 
-//-------------------------------------------------------------------------------------
+            res.json({
+                usuario: usuario,
+                token: token
+            });
 
-UsuarioController.update = (req, res) => {
+        }).catch(err => {
+            res.status(500).json(err);
+        });
 
-        const id = req.params.id;
+    };
 
-        if (req.user.usuario.rol == "administrador" || req.user.usuario.id == id) {//Actualización única al administrador o al usuario del perfil.
+module.exports = AuthController;
 
-              
-            
-              usuario.update(req.body, {
-                where: { id: id }
-              })
-                .then(num => {
-                  if (num == 1) {
-                    res.send({
-                      message: "El usuario ha sido actualizado correctamente."
-                    });
-                  } else {
-                    res.send({
-                      message: `No se ha podido actualizar el usuario con el id ${id}`
-                    });
-                  }
-                })
-                .catch(err => {
-                  res.status(500).send({
-                    message: "Ha surgido algún error al intentar actualizar el usuario con el id " + id + "."
-                  });
-                });
-        }else{
-          res.send({
-            message: `No tienes permisos para modificar el perfil indicado.`
-          });
-        }
-};
-
-//Eliminación de un usuario buscado por Id
-UsuarioController.delete = (req, res) => {
-
-    const id = req.params.id;
-
-    if (req.user.usuario.rol == "administrador" || req.user.usuario.id == id) {// HACEMOS QUE SOLO PUEDA BORRARLO EL ADMINISTRADOR O EL USUARIO DUEÑO DEL PERFIL Eliminación única al administrador o el usuario del perfil.
-
-            usuario.destroy({
-                where: { id: id }
-            })
-                .then(num => {
-                    if (num == 1) {
-                        res.send({
-                            message: `El usuario con id ${id} ha sido eliminado correctamente.`
-                        });
-                    } else {
-                        res.send({
-                            message: `No se ha podido eliminar el usuario con id ${id}.`
-                        });
-                    }
-                })
-                .catch(err => {
-                    res.status(500).send({
-                        message: "Ha surgido algún error al intentar borrar el usuario con el id " + id
-                    });
-                });
-    }else{
-      res.send({
-        message: `No tienes permisos para borrar el perfil indicado.`
-      });
-    }
-};
-
-//-------------------------------------------------------------------------------------
-
-//Eliminación de todos los usuarios
-UsuarioController.deleteAll = (req, res) => {
-
-  if (req.user.usuario.rol == "administrador") {//Eliminación única para el administrador
-
-              usuario.destroy({
-                where: {},
-                truncate: false
-              })
-                .then(nums => {
-                  res.send({ message: `Se han borrado ${nums} usuarios de la base de datos` });
-                })
-                .catch(err => {
-                  res.status(500).send({
-                    message:
-                      err.message || "Ha surgido algún error al intentar eliminar a los usuarios."
-                  });
-                });
-  }else{
-    res.send({
-      message: `No tienes permisos para borrar usuarios. Contacta con un administrador.`
-    });
-  }
-};
-
-module.exports = UsuarioController;
