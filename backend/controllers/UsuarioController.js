@@ -1,14 +1,14 @@
 const { usuario } = require('../models/index');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const usuarioConfig = require('../config/auth');
+const authConfig = require('../config/auth');
 
 const UsuarioController = {}; //Create the object controller
 
 //-------------------------------------------------------------------------------------
 //Login usuario with database
 //get usuario
-AuthController.signIn = (req, res) =>{
+UsuarioController.signIn = (req, res) =>{
         let { correo, clave } = req.body;
         // Buscar usuario
         usuario.findOne({ where: { correo: correo }
@@ -40,14 +40,14 @@ AuthController.signIn = (req, res) =>{
 //-------------------------------------------------------------------------------------
 //REGISTER new usuario in database
 //create usuario
-AuthController.signUp = (req, res)=> {
+UsuarioController.signUp = (req, res)=> {
 
         // Encriptamos la contraseña
         let clave = bcrypt.hashSync(req.body.clave, Number.parseInt(authConfig.rounds));
 
         // Crear un usuario
         usuario.create({
-            name: req.body.name,
+            nombre: req.body.nombre,
             correo: req.body.correo,
             clave: clave
         }).then(usuario => {
@@ -68,5 +68,5 @@ AuthController.signUp = (req, res)=> {
 
     };
 
-module.exports = AuthController;
+module.exports = UsuarioController;
 

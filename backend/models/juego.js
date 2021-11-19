@@ -1,6 +1,6 @@
 'use strict';
 const {Model} = require('sequelize');
-const category = require('./category');
+const pedido = require('./pedido');
 module.exports = (sequelize, DataTypes) => {
   class juego extends Model {
     /**
@@ -10,14 +10,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      juego.belongsTo(models.category, {
-        foreignKey: 'categoryId'
+      juego.belongsTo(models.pedido, {
+        foreignKey: 'pedidoId'
       });
     }
   };
   juego.init({
-    title: DataTypes.STRING,
-    categoryId: DataTypes.INTEGER
+    titulo: DataTypes.STRING,
+    año: DataTypes.DATE,
+    consola: DataTypes.STRING,
+    genero: DataTypes.STRING,
+    ciudad: DataTypes.STRING,
+    alquilada: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'juego',

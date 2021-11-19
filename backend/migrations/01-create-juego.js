@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
       },
       año: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DATE
       },
       consola: {
         type: Sequelize.STRING,

@@ -1,243 +1,174 @@
 //Importo modelo de datos
 const db = require("../models");
-const juegos = db.juego;
+const pedido = db.pedido;
 const Op = db.Sequelize.Op; //Import all ORM sequelize functions 
 
-var categoryModel  = require('../models').category;  //Add for dependency response
-
-const JuegoController = {}; //Create the object controller
-
+const PedidoController = {}; //Create the object controller
 
 
 //CRUD end-points Functions
 //-------------------------------------------------------------------------------------
-//GET all juegos from database
-JuegoController.getAll = (req, res) => {
-    
-    juegos.findAll({include: [{ model:categoryModel}]})
+//GET all categories from database
+PedidoController.getAll = (req, res) => {
+    const type = req.query.type;
+    var condition = type ? { type: { [Op.like]: `%${type}%` } } : null;
+  
+    pedido.findAll({ where: condition })
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving juegos."
+            err.message || "Some error occurred while retrieving categories."
         });
       });
   };
 
 
 //-------------------------------------------------------------------------------------
-//GET juegos by Id from database
-JuegoController.getById = (req, res) => {
+//GET categories by Id from database
+PedidoController.getById = (req, res) => {
     const id = req.params.id;
-
-    juegos.findByPk(id, {include: [{ model:categoryModel}]})
+  
+    pedido.findByPk(id)
       .then(data => {
         if (data) {
           res.send(data);
         } else {
           res.status(404).send({
-            message: `Cannot find Tutorial with id=${id}.`
+            message: `Cannot find Pedido with id=${id}.`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error retrieving juegos with id=" + id
+          message: "Error retrieving pedidos with id=" + id
         });
       });
   };
 
 
-
 //-------------------------------------------------------------------------------------
-//CREATE a new juegos in database
-JuegoController.create = (req, res) => {
+//CREATE a new pedido in database
+PedidoController.create = (req, res) => {
     // Validate request
-    if (!req.body.title) {
+    if (!req.body.type) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
       return;
     }
   
-    // Create a Juegos
-    const newJuego = {
-      title: req.body.title,
-      categoryId: req.body.categoryId
+    // Create a Pedido
+    const newPedido = {
+      type: req.body.type,
+      age: req.body.age
     };
   
-    // Save Juegos in the database
-    juegos.create(newJuego)
+    // Save Pedido in the database
+    pedido.create(newPedido)
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while creating the Juego."
+            err.message || "Some error occurred while creating the newPedido."
         });
       });
   };
 
 
 //-------------------------------------------------------------------------------------
-//UPDATE a juego from database
-JuegoController.update = (req, res) => {
+//UPDATE a pedido from database
+PedidoController.update = (req, res) => {
     const id = req.params.id;
   
-    juegos.update(req.body, {
+    pedido.update(req.body, {
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Juego was updated successfully."
+            message: "Pedido was updated successfully."
           });
         } else {
           res.send({
-            message: `Cannot update Juego with id=${id}. Maybe Juego was not found or req.body is empty!`
+            message: `Cannot update Pedido with id=${id}. Maybe Movie was not found or req.body is empty!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating Juego with id=" + id
+          message: "Error updating Pedido with id=" + id
         });
       });
   };
 
 
 //-------------------------------------------------------------------------------------
-//GET juego by Title from database 
-//FindByTitle
-  JuegoController.getByTitle = (req, res) => {
-    juegos.findAll({ where: { title: req.params.title } })
+//GET pedidos by Type from database  
+//FindByType
+PedidoController.getByType = (req, res) => {
+    pedido.findAll({ where: { type: req.params.type } })
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving tutorials."
+            err.message || "Some error occurred while retrieving pedidos."
         });
       });
   };
 
 
 //-------------------------------------------------------------------------------------
-//DELETE a juego by Id from database
-JuegoController.delete = (req, res) => {
+//DELETE a pedido by Id from database
+PedidoController.delete = (req, res) => {
     const id = req.params.id;
   
-    juegos.destroy({
+    pedido.destroy({
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Juego was deleted successfully!"
+            message: "Pedido was deleted successfully!"
           });
         } else {
           res.send({
-            message: `Cannot delete Juego with id=${id}. Maybe Juego was not found!`
+            message: `Cannot delete Pedido with id=${id}. Maybe Juego was not found!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete Juego with id=" + id
+          message: "Could not delete Pedido with id=" + id
         });
       });
   };
 
 
 //-------------------------------------------------------------------------------------
-//DELETE all juegos from database
-//delete all juegos 
-  JuegoController.deleteAll = (req, res) => {
-    juegos.destroy({
+//DELETE all categories from database
+//delete all categories   
+PedidoController.deleteAll = (req, res) => {
+    pedido.destroy({
       where: {},
       truncate: false
     })
       .then(nums => {
-        res.send({ message: `${nums} Juegos were deleted successfully!` });
+        res.send({ message: `${nums} pedidos were deleted successfully!` });
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while removing all juegos."
+            err.message || "Some error occurred while removing all pedidos."
         });
       });
   };
-
-module.exports = JuegoController;
-
-if (req.user.usuario.rol == "administrador") {// Único permiso de eliminación al administrador
-
-const id = req.params.id;
-
-let idJuego = 0;
-
-//Buscamos el pedido que queremos eliminar y sacamos el juego que está guardado en el pedido 
-pedido.findByPk(id)
-  .then(data => {
-      if (data) {
-          idJuego = data.juegoId
-          res.send(data);
-      } else {
-          res.status(404).send({
-              message: `No se puede encontrar el pedido con el id ${id}.`
-          });
-      }
-  })
-  .catch(err => {
-      res.status(500).send({
-          message: "Ha surgido algún error al intentar acceder al pedido con el id " + id
-      });
-  });
-
-//Eliminación del pedido
-pedido.destroy({ where: { id: id }})
-.then(num => {
-    if (num == 1) {
-            juego.update( {alquilada: false},{ where: { id: idJuego }}) //Actualización del juego para poder volverlo a alquilar
-            .then(num => {
-              if (num == 1) {
-                
-
-
-              } else {
-                
-            
-                
-              }
-            })
-            .catch(err => {
-              res.status(500).send({
-                message: "Ha surgido algún error al intentar crear el pedido."
-              });
-            });
-        res.send({
-          message: `El pedido con id ${id} ha sido eliminada correctamente.`
-      });
-    } else {
-        res.send({
-            message: `No se ha podido eliminar el pedido con id ${id}.`
-        });
-    }
-})
-.catch(err => {
-    res.status(500).send({
-        message: "Ha surgido algún error al intentar borrar el pedido con el id " + id
-    });
-});
-}else{
-res.send({
-message: `No tienes permisos para borrar el pedido. Contacta con un administrador.`
-});
-};
 
 module.exports = PedidoController;
 
