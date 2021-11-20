@@ -14,7 +14,8 @@ const JuegoController = {}; //Create the object controller
 //GET all juegos from database
 JuegoController.getAll = (req, res) => {
     
-    juegos.findAll({include: [{ model:categoryModel}]})
+  
+    juegos.findAll()
       .then(data => {
         res.send(data);
       })
@@ -32,7 +33,7 @@ JuegoController.getAll = (req, res) => {
 JuegoController.getById = (req, res) => {
     const id = req.params.id;
 
-    juegos.findByPk(id, {include: [{ model:categoryModel}]})
+    juegos.findByPk()
       .then(data => {
         if (data) {
           res.send(data);
@@ -64,8 +65,13 @@ JuegoController.create = (req, res) => {
   
     // Create a Juegos
     const newJuego = {
-      title: req.body.title,
-      categoryId: req.body.categoryId
+      titulo: req.body.titulo,
+      año: req.body.año,
+      consola: req.body.consola,
+      genero: req.body.genero,
+      ciudad: req.body.ciudad,
+      alquilada: req.body.alquilada
+
     };
   
     // Save Juegos in the database
