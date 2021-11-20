@@ -14,6 +14,7 @@ const JuegoController = {}; //Create the object controller
 //GET all juegos from database
 JuegoController.getAll = (req, res) => {
     
+  
     juegos.findAll()
       .then(data => {
         res.send(data);
