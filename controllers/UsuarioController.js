@@ -15,7 +15,10 @@ UsuarioController.signIn = (req, res) =>{
               usuario.findOne({
         where: { correo: correo }
      }).then(usuario => {
-      res.json({usuario})
+      let token = jwt.sign({ usuario: usuario }, authConfig.secret, {
+        expiresIn: authConfig.expires
+    });
+      res.json({usuario: usuario, token: token})
      }).catch(err => {
         res.status(500).json(err);
      })
