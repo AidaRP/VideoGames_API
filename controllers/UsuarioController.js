@@ -17,20 +17,21 @@ UsuarioController.signIn = (req, res) =>{
             if (!usuario) {
                 res.status(404).json({ msg: "Usuario con este correo no encontrado" });
             } else {
-                if (bcrypt.compareSync(clave, usuario.clave)) {
-                    // Creamos el token
-                    let token = jwt.sign({ usuario: usuario }, authConfig.secret, {
-                        expiresIn: authConfig.expires
-                    });
+              res.json({
+                usuario: usuario,
+                token: token
+            })
+                // if (bcrypt.compareSync(clave, usuario.clave)) {
+                //     // Creamos el token
+                //     let token = jwt.sign({ usuario: usuario }, authConfig.secret, {
+                //         expiresIn: authConfig.expires
+                //     });
 
-                    res.json({
-                        usuario: usuario,
-                        token: token
-                    })
-                } else {
-                    // Unauthorized Access
-                    res.status(401).json({ msg: "Contraseña incorrecta" })
-                }
+                   
+                // } else {
+                //     // Unauthorized Access
+                //     res.status(401).json({ msg: "Contraseña incorrecta" })
+                // }
             }
         }).catch(err => {
             res.status(500).json(err);
